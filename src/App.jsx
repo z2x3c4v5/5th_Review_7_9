@@ -14,32 +14,36 @@ import React, { useState, useEffect, useRef } from 'react';
 const img = (file) => `${import.meta.env.BASE_URL}images/${file}`;
 
 const UNIT_POOLS = {
-  // 7단원: 초대하기 / 수락·거절하기
+  // 7단원: 지난 일 묻고 답하기 (과거형)
   '7단원': [
-    { emoji: '📚', image: img('u7_01_book_festival_of_course.png'), question: 'Can you come to the book festival?', answer: 'Of course.', ko: '책 축제에 올 수 있니? / 물론이지.' },
-    { emoji: '🎬', image: img('u7_02_movie_festival_sorry.png'), question: 'Can you come to the movie festival?', answer: "Sorry, but I can't.", ko: '영화 축제에 올 수 있니? / 미안하지만, 갈 수 없어.' },
-    { emoji: '🎂', image: img('u7_03_birthday_party_of_course.png'), question: 'Can you come to my birthday party?', answer: 'Of course.', ko: '내 생일 파티에 올 수 있니? / 물론이지.' },
-    { emoji: '🥋', image: img('u7_04_taekwondo_show_sorry.png'), question: 'Can you come to the taekwondo show?', answer: "Sorry, but I can't.", ko: '태권도 공연에 올 수 있니? / 미안하지만, 갈 수 없어.' },
-    { emoji: '🍳', image: img('u7_05_cooking_class_party_of_course.png'), question: 'Can you come to the cooking class party?', answer: 'Of course.', ko: '요리 교실 파티에 올 수 있니? / 물론이지.' },
-    { emoji: '⚾', image: img('u7_06_laser_show_baseball_game.png'), question: 'Can you come to the laser show?', answer: "Sorry, but I can't. I have a baseball game.", ko: '레이저 쇼에 올 수 있니? / 미안하지만, 갈 수 없어. 야구 경기가 있어.' },
+    { emoji: '🏀', image: img('u7_01_i_played_basketball.png'), question: 'What did you do yesterday?', answer: 'I played basketball.', ko: '어제 뭐 했니? / 나는 농구를 했어.' },
+    { emoji: '🍉', image: img('u7_02_i_picked_watermelons.png'), question: 'What did you do yesterday?', answer: 'I picked watermelons.', ko: '어제 뭐 했니? / 나는 수박을 땄어.' },
+    { emoji: '👵', image: img('u7_03_i_visited_my_grandma.png'), question: 'What did you do last weekend?', answer: 'I visited my grandma.', ko: '지난 주말에 뭐 했니? / 나는 할머니 댁을 방문했어.' },
+    { emoji: '🍪', image: img('u7_04_i_made_chocolate_cookies.png'), question: 'What did you do this summer?', answer: 'I made chocolate cookies.', ko: '이번 여름에 뭐 했니? / 나는 초콜릿 쿠키를 만들었어.' },
+    { emoji: '🌊', image: img('u7_05_it_was_good_i_swam_in_the_sea.png'), question: 'How was your weekend?', answer: 'It was good. I swam in the sea.', ko: '주말 어땠니? / 좋았어. 나는 바다에서 수영했어.' },
+    { emoji: '🎉', image: img('u7_06_it_was_great_i_went_to_a_festival.png'), question: 'How was your weekend?', answer: 'It was great. I went to a festival.', ko: '주말 어땠니? / 아주 좋았어. 나는 축제에 갔어.' },
   ],
-  // 8단원: 비교하기 (비교급)
+  // 8단원: 음식 주문하기 / 더 권하기
   '8단원': [
-    { emoji: '📏', image: img('u8_01_i_m_taller_than_you.png'), question: 'Who is taller?', answer: "I'm taller than you.", ko: '누가 더 키가 크니? / 내가 너보다 키가 더 커.' },
-    { emoji: '👧', image: img('u8_02_amy_is_older_than_sally.png'), question: 'Who is older, Amy or Sally?', answer: 'Amy is older than Sally.', ko: 'Amy와 Sally 중 누가 나이가 더 많니? / Amy가 Sally보다 나이가 더 많아.' },
-    { emoji: '💪', image: img('u8_03_tom_is_stronger_than_miso.png'), question: 'Who is stronger, Tom or Miso?', answer: 'Tom is stronger than Miso.', ko: 'Tom과 미소 중 누가 더 힘이 세니? / Tom이 미소보다 힘이 더 세.' },
-    { emoji: '🚆', image: img('u8_04_train_is_faster_than_the_car.png'), question: 'The car is faster than the train.', answer: "That's not right. The train is faster than the car.", ko: '자동차가 기차보다 더 빨라. / 그건 맞지 않아. 기차가 자동차보다 더 빨라.' },
-    { emoji: '🏀', image: img('u8_05_basketball_is_bigger_than_the_baseball.png'), question: 'The baseball is bigger than the basketball.', answer: "That's not right. The basketball is bigger than the baseball.", ko: '야구공이 농구공보다 더 커. / 그건 맞지 않아. 농구공이 야구공보다 더 커.' },
-    { emoji: '🍉', image: img('u8_06_watermelon_is_heavier_than_the_apple.png'), question: 'The apple is heavier than the watermelon.', answer: "That's not right. The watermelon is heavier than the apple.", ko: '사과가 수박보다 더 무거워. / 그건 맞지 않아. 수박이 사과보다 더 무거워.' },
+    { emoji: '🥗', image: img('u8_01_i_d_like_a_fruit_salad.png'), question: 'What would you like?', answer: "I'd like a fruit salad.", ko: '무엇을 먹고 싶니? / 과일 샐러드를 먹고 싶어.' },
+    { emoji: '🍕', image: img('u8_02_i_d_like_a_cheese_pizza.png'), question: 'What would you like?', answer: "I'd like a cheese pizza.", ko: '무엇을 먹고 싶니? / 치즈 피자를 먹고 싶어.' },
+    { emoji: '🍝', image: img('u8_03_i_d_like_tomato_spaghetti.png'), question: 'What would you like?', answer: "I'd like tomato spaghetti.", ko: '무엇을 먹고 싶니? / 토마토 스파게티를 먹고 싶어.' },
+    { emoji: '🥩', image: img('u8_04_i_d_like_a_beef_steak.png'), question: 'What would you like?', answer: "I'd like a beef steak.", ko: '무엇을 먹고 싶니? / 소고기 스테이크를 먹고 싶어.' },
+    { emoji: '🥕', image: img('u8_05_i_d_like_carrot_cake.png'), question: 'What would you like?', answer: "I'd like carrot cake.", ko: '무엇을 먹고 싶니? / 당근 케이크를 먹고 싶어.' },
+    { emoji: '🍊', image: img('u8_06_i_d_like_an_orange_juice.png'), question: 'What would you like?', answer: "I'd like an orange juice.", ko: '무엇을 마시고 싶니? / 오렌지 주스를 마시고 싶어.' },
+    // 더 권하기 — 별도 그림이 없어 같은 음식 그림을 함께 사용합니다
+    { emoji: '😋', image: img('u8_05_i_d_like_carrot_cake.png'), question: 'Do you want some more?', answer: 'Yes, please.', ko: '좀 더 먹을래? / 응, 줘.' },
+    { emoji: '🙅', image: img('u8_06_i_d_like_an_orange_juice.png'), question: 'Do you want some more?', answer: 'No, thanks.', ko: '좀 더 마실래? / 아니, 괜찮아.' },
   ],
-  // 9단원: 계획 묻고 답하기 (be going to)
+  // 9단원: 물건 값 묻고 답하기 / 원하는 색깔 말하기
   '9단원': [
-    { emoji: '🏠', image: img('u9_01_i_m_going_to_stay_home.png'), question: 'What are you going to do tomorrow?', answer: "I'm going to stay home.", ko: '내일 뭐 할 거니? / 집에 있을 거야.' },
-    { emoji: '🏀', image: img('u9_02_i_m_going_to_watch_a_basketball_game.png'), question: 'What are you going to do this weekend?', answer: "I'm going to watch a basketball game.", ko: '이번 주말에 뭐 할 거니? / 농구 경기를 볼 거야.' },
-    { emoji: '⛺', image: img('u9_03_i_m_going_to_go_camping.png'), question: 'What are you going to do tomorrow?', answer: "I'm going to go camping.", ko: '내일 뭐 할 거니? / 캠핑하러 갈 거야.' },
-    { emoji: '🧹', image: img('u9_04_i_m_going_to_clean_my_room.png'), question: 'What are you going to do this weekend?', answer: "I'm going to clean my room.", ko: '이번 주말에 뭐 할 거니? / 내 방을 청소할 거야.' },
-    { emoji: '➗', image: img('u9_05_i_m_going_to_study_math.png'), question: 'What are you going to do tomorrow?', answer: "I'm going to study math.", ko: '내일 뭐 할 거니? / 수학을 공부할 거야.' },
-    { emoji: '👵', image: img('u9_06_i_m_going_to_visit_my_grandparents.png'), question: 'What are you going to do this weekend?', answer: "I'm going to visit my grandparents.", ko: '이번 주말에 뭐 할 거니? / 조부모님 댁을 방문할 거야.' },
+    { emoji: '🧦', image: img('u9_01_they_are_ten_thousand_won.png'), question: 'How much are the socks?', answer: 'They are ten thousand won.', ko: '양말은 얼마예요? / 만 원이에요.' },
+    { emoji: '👓', image: img('u9_02_they_are_twenty_thousand_won.png'), question: 'How much are the glasses?', answer: 'They are twenty thousand won.', ko: '안경은 얼마예요? / 2만 원이에요.' },
+    { emoji: '👟', image: img('u9_03_they_are_thirty_thousand_won.png'), question: 'How much are the shoes?', answer: 'They are thirty thousand won.', ko: '신발은 얼마예요? / 3만 원이에요.' },
+    { emoji: '🧤', image: img('u9_04_they_are_forty_thousand_won.png'), question: 'How much are the gloves?', answer: 'They are forty thousand won.', ko: '장갑은 얼마예요? / 4만 원이에요.' },
+    { emoji: '👖', image: img('u9_05_they_are_fifty_thousand_won.png'), question: 'How much are the pants?', answer: 'They are fifty thousand won.', ko: '바지는 얼마예요? / 5만 원이에요.' },
+    { emoji: '🖤', image: img('u9_06_i_want_black_please.png'), question: 'What color do you want?', answer: 'I want black, please.', ko: '무슨 색을 원하니? / 검은색으로 주세요.' },
+    { emoji: '❤️', image: img('u9_07_i_want_red_please.png'), question: 'What color do you want?', answer: 'I want red, please.', ko: '무슨 색을 원하니? / 빨간색으로 주세요.' },
   ],
 };
 
@@ -49,7 +53,8 @@ const ALL_UNITS = ['7단원', '8단원', '9단원'];
 const TOTAL_EXPRESSIONS = Object.values(UNIT_POOLS).reduce((s, p) => s + p.length, 0);
 
 // 표현마다 고유 키(이미지 경로) — 별 스티커 저장/조회에 사용
-const exprKey = (cell) => cell.image || `${cell.unit || ''}:${cell.answer}`;
+// (같은 그림을 쓰는 표현이 있어 그림 경로 + 대답으로 구분)
+const exprKey = (cell) => `${cell.image || cell.unit || ''}|${cell.answer}`;
 
 // 보드 배치 틀: START + 일반칸 24 + 액션칸 3 + FINISH = 29칸
 // (칸 번호·이동 로직은 그대로 — 화면 배치(뱀 모양)만 CSS grid로 바뀝니다)
@@ -166,7 +171,12 @@ const normWord = (w) => {
   return ORDINAL_WORDS[s] || s;
 };
 
-const tokenize = (str) => str.replace(/['’`]/g, '').split(/[^a-zA-Z0-9]+/).map(normWord).filter(Boolean);
+// 음성 인식이 "10,000 won"처럼 숫자로 받아적어도 "ten thousand won"과 같게 보도록 변환
+const TENS_WORDS = { 1: 'one', 2: 'two', 3: 'three', 4: 'four', 5: 'five', 6: 'six', 7: 'seven', 8: 'eight', 9: 'nine', 10: 'ten', 20: 'twenty', 30: 'thirty', 40: 'forty', 50: 'fifty', 60: 'sixty', 70: 'seventy', 80: 'eighty', 90: 'ninety' };
+const expandThousands = (str) =>
+  str.replace(/(\d{1,2}),?000(?!\d)/g, (m, n) => (TENS_WORDS[+n] ? ` ${TENS_WORDS[+n]} thousand ` : m));
+
+const tokenize = (str) => expandThousands(str).replace(/['’`]/g, '').split(/[^a-zA-Z0-9]+/).map(normWord).filter(Boolean);
 
 const contentTokens = (str) => [...new Set(tokenize(str).filter((t) => !STOPWORDS.has(t)))];
 
@@ -309,11 +319,11 @@ const WORD_MEANING = {
   because: '왜냐하면',
   happy: '기쁜/행복한', sad: '슬픈', angry: '화난',
   tired: '피곤한', sleepy: '졸린', worried: '걱정되는',
-  black: '검은', belt: '띠(벨트)',
+  belt: '띠(벨트)',
   dog: '강아지', sick: '아픈',
   brother: '오빠/형/남동생', broke: 'break의 과거(부쉈다)', robot: '로봇',
   cleaned: '청소했다', house: '집',
-  went: 'go의 과거(갔다)', bed: '침대', late: '늦은/늦게',
+  bed: '침대', late: '늦은/늦게',
   math: '수학', test: '시험', tomorrow: '내일',
   // 5단원 (길찾기)
   straight: '똑바로/곧장', block: '블록(구역)', blocks: '블록(구역)들',
@@ -323,25 +333,26 @@ const WORD_MEANING = {
   library: '도서관', park: '공원', store: '가게', abc: 'ABC(이름)',
   // 6단원 (생김새)
   look: '보이다/생기다', looks: '보이다',
-  eyes: '눈', hair: '머리카락', glasses: '안경', dress: '원피스', shirt: '셔츠',
+  eyes: '눈', hair: '머리카락', dress: '원피스', shirt: '셔츠',
   wearing: '입고/쓰고 있는', short: '짧은', long: '긴',
-  // 7단원 (초대하기)
-  come: '오다', course: '과정 (of course: 물론)', sorry: '미안한', but: '하지만',
-  cant: '~할 수 없다', "can't": '~할 수 없다', party: '파티', book: '책', movie: '영화',
-  taekwondo: '태권도', show: '공연/쇼', laser: '레이저', baseball: '야구(공)', game: '경기/게임',
-  cooking: '요리', class: '수업/교실', okay: '좋아', will: '~할 것이다', four: '4(시)', five: '5(시)',
-  september: '9월',
-  // 8단원 (비교하기)
-  who: '누구', than: '~보다', taller: '키가 더 큰', older: '나이가 더 많은', stronger: '힘이 더 센',
-  faster: '더 빠른', bigger: '더 큰', heavier: '더 무거운', or: '또는', not: '아닌',
-  "that's": '그것은 ~이다', thats: '그것은 ~이다', car: '자동차', train: '기차',
-  basketball: '농구(공)', apple: '사과',
-  // 9단원 (계획 말하기)
-  stay: '머무르다', home: '집 (stay home: 집에 있다)',
-  going: '~할 예정인 (be going to)', weekend: '주말', this: '이번/이것',
-  watch: '보다/시청하다', camping: '캠핑', clean: '청소하다', room: '방', visit: '방문하다',
-  grandparents: '조부모님', study: '공부하다', join: '함께하다/참여하다', good: '좋은', idea: '생각',
-  blue: '파란', gray: '회색', brown: '갈색', red: '빨간', white: '하얀', yellow: '노란',
+  // 7단원 (지난 일 말하기)
+  did: 'do의 과거 (했다)', yesterday: '어제', last: '지난', weekend: '주말', this: '이번/이것',
+  played: 'play의 과거 (했다/놀았다)', basketball: '농구', picked: 'pick의 과거 (땄다)',
+  watermelons: '수박들', visited: 'visit의 과거 (방문했다)', grandma: '할머니',
+  made: 'make의 과거 (만들었다)', chocolate: '초콜릿', cookies: '쿠키들',
+  was: '~였다 (is의 과거)', good: '좋은', great: '아주 좋은', swam: 'swim의 과거 (수영했다)',
+  sea: '바다', went: 'go의 과거 (갔다)',
+  // 8단원 (음식 주문하기)
+  would: '~하고 싶다 (would like)', "i'd": 'I would (나는 ~하고 싶다)', id: 'I would (나는 ~하고 싶다)',
+  fruit: '과일', salad: '샐러드', cheese: '치즈', pizza: '피자', tomato: '토마토',
+  spaghetti: '스파게티', beef: '소고기', steak: '스테이크', carrot: '당근', cake: '케이크',
+  orange: '오렌지', juice: '주스', want: '원하다', some: '약간의', more: '더',
+  yes: '응/네', no: '아니', please: '부디/~해 주세요', thanks: '고마워',
+  // 9단원 (물건 사기)
+  much: '많은 (how much: 얼마)', they: '그것들은', thousand: '천(1,000)', won: '원(한국 돈)',
+  ten: '10', twenty: '20', thirty: '30', forty: '40', fifty: '50',
+  socks: '양말', glasses: '안경', shoes: '신발', gloves: '장갑', pants: '바지',
+  color: '색깔', black: '검은색', red: '빨간색',
 };
 
 const lookupMeaning = (raw) => {
@@ -381,7 +392,7 @@ const pickWritingCells = (board, selectedUnits) => {
 };
 
 // --- 별 스티커 로컬 저장 --------------------------------------------
-const STAR_KEY = 'boardgame_stars_v2';
+const STAR_KEY = 'boardgame_stars_5th_7_9_v1';
 
 const loadStars = () => {
   try {
@@ -1256,7 +1267,7 @@ export default function App() {
           <div className="absolute top-1 left-3 text-2xl md:text-3xl opacity-70 select-none pointer-events-none">🌊</div>
           <div className="absolute bottom-1 right-3 text-2xl md:text-3xl opacity-70 select-none pointer-events-none">⛱️</div>
           <h1 className="relative text-xl sm:text-2xl md:text-3xl font-black text-white leading-tight break-keep drop-shadow-[0_2px_0_rgba(2,132,199,0.9)]">
-            🏖️ 6학년 7-9단원 주요표현 보드게임{' '}
+            🏖️ 5학년 7-9단원 주요표현 보드게임{' '}
             <span className="text-yellow-200">with Writing</span> 🏄
           </h1>
         </div>
