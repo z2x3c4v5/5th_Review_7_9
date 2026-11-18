@@ -11,39 +11,40 @@ import React, { useState, useEffect, useRef } from 'react';
 //  - question / answer: 학생이 말할 영어 질문과 대답입니다.
 //  - ko: (선택) 한글 뜻.
 // =================================================================
-const img = (file) => `${import.meta.env.BASE_URL}images/${file}`;
+// 파일명에 공백·괄호가 있어도 깨지지 않도록 URL 인코딩
+const img = (file) => `${import.meta.env.BASE_URL}images/${encodeURIComponent(file)}`;
 
 const UNIT_POOLS = {
   // 7단원: 지난 일 묻고 답하기 (과거형)
   '7단원': [
-    { emoji: '🏀', image: img('u7_01_i_played_basketball.png'), question: 'What did you do yesterday?', answer: 'I played basketball.', ko: '어제 뭐 했니? / 나는 농구를 했어.' },
-    { emoji: '🍉', image: img('u7_02_i_picked_watermelons.png'), question: 'What did you do yesterday?', answer: 'I picked watermelons.', ko: '어제 뭐 했니? / 나는 수박을 땄어.' },
-    { emoji: '👵', image: img('u7_03_i_visited_my_grandma.png'), question: 'What did you do last weekend?', answer: 'I visited my grandma.', ko: '지난 주말에 뭐 했니? / 나는 할머니 댁을 방문했어.' },
-    { emoji: '🍪', image: img('u7_04_i_made_chocolate_cookies.png'), question: 'What did you do this summer?', answer: 'I made chocolate cookies.', ko: '이번 여름에 뭐 했니? / 나는 초콜릿 쿠키를 만들었어.' },
-    { emoji: '🌊', image: img('u7_05_it_was_good_i_swam_in_the_sea.png'), question: 'How was your weekend?', answer: 'It was good. I swam in the sea.', ko: '주말 어땠니? / 좋았어. 나는 바다에서 수영했어.' },
-    { emoji: '🎉', image: img('u7_06_it_was_great_i_went_to_a_festival.png'), question: 'How was your weekend?', answer: 'It was great. I went to a festival.', ko: '주말 어땠니? / 아주 좋았어. 나는 축제에 갔어.' },
+    { emoji: '🏀', image: img('01_i_played_basketball (1).png'), question: 'What did you do yesterday?', answer: 'I played basketball.', ko: '어제 뭐 했니? / 나는 농구를 했어.' },
+    { emoji: '🍉', image: img('02_i_picked_watermelons (1).png'), question: 'What did you do yesterday?', answer: 'I picked watermelons.', ko: '어제 뭐 했니? / 나는 수박을 땄어.' },
+    { emoji: '👵', image: img('04_i_visited_my_grandma (1).png'), question: 'What did you do last weekend?', answer: 'I visited my grandma.', ko: '지난 주말에 뭐 했니? / 나는 할머니 댁을 방문했어.' },
+    { emoji: '🍪', image: img('03_i_made_chocolate_cookies (1).png'), question: 'What did you do this summer?', answer: 'I made chocolate cookies.', ko: '이번 여름에 뭐 했니? / 나는 초콜릿 쿠키를 만들었어.' },
+    { emoji: '🌊', image: img('05_it_was_good_i_swam_in_the_sea (1).png'), question: 'How was your weekend?', answer: 'It was good. I swam in the sea.', ko: '주말 어땠니? / 좋았어. 나는 바다에서 수영했어.' },
+    { emoji: '🎉', image: img('06_it_was_great_i_went_to_a_festival (1).png'), question: 'How was your weekend?', answer: 'It was great. I went to a festival.', ko: '주말 어땠니? / 아주 좋았어. 나는 축제에 갔어.' },
   ],
   // 8단원: 음식 주문하기 / 더 권하기
   '8단원': [
-    { emoji: '🥗', image: img('u8_01_i_d_like_a_fruit_salad.png'), question: 'What would you like?', answer: "I'd like a fruit salad.", ko: '무엇을 먹고 싶니? / 과일 샐러드를 먹고 싶어.' },
-    { emoji: '🍕', image: img('u8_02_i_d_like_a_cheese_pizza.png'), question: 'What would you like?', answer: "I'd like a cheese pizza.", ko: '무엇을 먹고 싶니? / 치즈 피자를 먹고 싶어.' },
-    { emoji: '🍝', image: img('u8_03_i_d_like_tomato_spaghetti.png'), question: 'What would you like?', answer: "I'd like tomato spaghetti.", ko: '무엇을 먹고 싶니? / 토마토 스파게티를 먹고 싶어.' },
-    { emoji: '🥩', image: img('u8_04_i_d_like_a_beef_steak.png'), question: 'What would you like?', answer: "I'd like a beef steak.", ko: '무엇을 먹고 싶니? / 소고기 스테이크를 먹고 싶어.' },
-    { emoji: '🥕', image: img('u8_05_i_d_like_carrot_cake.png'), question: 'What would you like?', answer: "I'd like carrot cake.", ko: '무엇을 먹고 싶니? / 당근 케이크를 먹고 싶어.' },
-    { emoji: '🍊', image: img('u8_06_i_d_like_an_orange_juice.png'), question: 'What would you like?', answer: "I'd like an orange juice.", ko: '무엇을 마시고 싶니? / 오렌지 주스를 마시고 싶어.' },
+    { emoji: '🥗', image: img('01_i_d_like_a_fruit_salad.png'), question: 'What would you like?', answer: "I'd like a fruit salad.", ko: '무엇을 먹고 싶니? / 과일 샐러드를 먹고 싶어.' },
+    { emoji: '🍕', image: img('02_i_d_like_a_cheese_pizza.png'), question: 'What would you like?', answer: "I'd like a cheese pizza.", ko: '무엇을 먹고 싶니? / 치즈 피자를 먹고 싶어.' },
+    { emoji: '🍝', image: img('03_i_d_like_tomato_spaghetti.png'), question: 'What would you like?', answer: "I'd like tomato spaghetti.", ko: '무엇을 먹고 싶니? / 토마토 스파게티를 먹고 싶어.' },
+    { emoji: '🥩', image: img('04_i_d_like_a_beef_steak.png'), question: 'What would you like?', answer: "I'd like a beef steak.", ko: '무엇을 먹고 싶니? / 소고기 스테이크를 먹고 싶어.' },
+    { emoji: '🥕', image: img('05_i_d_like_carrot_cake.png'), question: 'What would you like?', answer: "I'd like carrot cake.", ko: '무엇을 먹고 싶니? / 당근 케이크를 먹고 싶어.' },
+    { emoji: '🍊', image: img('06_i_d_like_an_orange_juice.png'), question: 'What would you like?', answer: "I'd like an orange juice.", ko: '무엇을 마시고 싶니? / 오렌지 주스를 마시고 싶어.' },
     // 더 권하기 — 별도 그림이 없어 같은 음식 그림을 함께 사용합니다
-    { emoji: '😋', image: img('u8_05_i_d_like_carrot_cake.png'), question: 'Do you want some more?', answer: 'Yes, please.', ko: '좀 더 먹을래? / 응, 줘.' },
-    { emoji: '🙅', image: img('u8_06_i_d_like_an_orange_juice.png'), question: 'Do you want some more?', answer: 'No, thanks.', ko: '좀 더 마실래? / 아니, 괜찮아.' },
+    { emoji: '😋', image: img('05_i_d_like_carrot_cake.png'), question: 'Do you want some more?', answer: 'Yes, please.', ko: '좀 더 먹을래? / 응, 줘.' },
+    { emoji: '🙅', image: img('06_i_d_like_an_orange_juice.png'), question: 'Do you want some more?', answer: 'No, thanks.', ko: '좀 더 마실래? / 아니, 괜찮아.' },
   ],
   // 9단원: 물건 값 묻고 답하기 / 원하는 색깔 말하기
   '9단원': [
-    { emoji: '🧦', image: img('u9_01_they_are_ten_thousand_won.png'), question: 'How much are the socks?', answer: 'They are ten thousand won.', ko: '양말은 얼마예요? / 만 원이에요.' },
-    { emoji: '👓', image: img('u9_02_they_are_twenty_thousand_won.png'), question: 'How much are the glasses?', answer: 'They are twenty thousand won.', ko: '안경은 얼마예요? / 2만 원이에요.' },
-    { emoji: '👟', image: img('u9_03_they_are_thirty_thousand_won.png'), question: 'How much are the shoes?', answer: 'They are thirty thousand won.', ko: '신발은 얼마예요? / 3만 원이에요.' },
-    { emoji: '🧤', image: img('u9_04_they_are_forty_thousand_won.png'), question: 'How much are the gloves?', answer: 'They are forty thousand won.', ko: '장갑은 얼마예요? / 4만 원이에요.' },
-    { emoji: '👖', image: img('u9_05_they_are_fifty_thousand_won.png'), question: 'How much are the pants?', answer: 'They are fifty thousand won.', ko: '바지는 얼마예요? / 5만 원이에요.' },
-    { emoji: '🖤', image: img('u9_06_i_want_black_please.png'), question: 'What color do you want?', answer: 'I want black, please.', ko: '무슨 색을 원하니? / 검은색으로 주세요.' },
-    { emoji: '❤️', image: img('u9_07_i_want_red_please.png'), question: 'What color do you want?', answer: 'I want red, please.', ko: '무슨 색을 원하니? / 빨간색으로 주세요.' },
+    { emoji: '🧦', image: img('01_they_are_ten_thousand_won.png'), question: 'How much are the socks?', answer: 'They are ten thousand won.', ko: '양말은 얼마예요? / 만 원이에요.' },
+    { emoji: '👓', image: img('02_they_are_twenty_thousand_won.png'), question: 'How much are the glasses?', answer: 'They are twenty thousand won.', ko: '안경은 얼마예요? / 2만 원이에요.' },
+    { emoji: '👟', image: img('03_they_are_thirty_thousand_won.png'), question: 'How much are the shoes?', answer: 'They are thirty thousand won.', ko: '신발은 얼마예요? / 3만 원이에요.' },
+    { emoji: '🧤', image: img('04_they_are_forty_thousand_won.png'), question: 'How much are the gloves?', answer: 'They are forty thousand won.', ko: '장갑은 얼마예요? / 4만 원이에요.' },
+    { emoji: '👖', image: img('05_they_are_fifty_thousand_won.png'), question: 'How much are the pants?', answer: 'They are fifty thousand won.', ko: '바지는 얼마예요? / 5만 원이에요.' },
+    { emoji: '🖤', image: img('06_i_want_black_please.png'), question: 'What color do you want?', answer: 'I want black, please.', ko: '무슨 색을 원하니? / 검은색으로 주세요.' },
+    { emoji: '❤️', image: img('07_i_want_red_please.png'), question: 'What color do you want?', answer: 'I want red, please.', ko: '무슨 색을 원하니? / 빨간색으로 주세요.' },
   ],
 };
 
